@@ -8,13 +8,15 @@
 
 
 ### 函数式编程
-
-- 纯函数和不可变值
+- 是一种编程范式
+- 纯函数
+- 不可变值
 
 ### JSX 的本质是什么
 - JSX等同于Vue模板
 - vue 模板不是html -- vue-templete-complier
 - JSX 不是 js -- babel
+- JSX本质是 createElement 函数，执行返回vnode
 
   
 // h函数
@@ -106,3 +108,36 @@ class ListDemo extends React.Component {
 ![Image text](./images/transaction事务机制.png)
 
 - 在事件的开始和结束做一些事情
+
+### 组件渲染和更新的过程
+- JSX 即createElement函数
+- 执行生成vnode
+- patch(elem,vnode),和patch(vnode, newvnode)
+
+`件渲染和更新的过程`
+渲染
+- props state
+- render() 生成vnode
+- patch(elem, vnode)
+
+更新
+- setState(newState) --> dirtyComponent可能有子组件
+- render() 生成 newVnode
+- patch(vnode, newVnode)
+
+`更新的两个阶段`
+`react fiber`
+- patch被拆分为两个阶段
+- reconciliation 阶段 - 执行diff算法，纯js计算
+- commit阶段 - 将diff结果渲染DOM
+
+react渲染更新可能会有性能问题
+- JS单线程，且和DOM渲染共用一个线程
+- 当组件足够复杂，组件更新时计算和渲染都压力大
+- 同时再有DOM操作需求(动画，拖拽将卡顿)
+
+解决方案 fiber
+- 将 reconciliation 任务阶段拆分(commit无法拆分)
+- DOM需要渲染时暂停，空闲时恢复
+- window.requestIdleCallback
+
