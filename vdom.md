@@ -16,10 +16,10 @@
 - tag 和 key，两者都相同，则认为相同节点，不再深度比较
 
 patchVnode 函数核心函数：
-updateChildren (key 的重要性)
-addVnodes
-removeVnodes
-setTextContent
+- updateChildren (key 的重要性)
+- addVnodes
+- removeVnodes
+- setTextContent
 
 vnode 核心概念(h, vnode, patch, diff, key)
 
