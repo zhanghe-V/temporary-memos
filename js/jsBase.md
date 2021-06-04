@@ -197,3 +197,130 @@ Promise.resolve().then(() => {
 - dragleave 离开目标元素触发
 - dragend 拖动结束触发
 - drop 拖动至目标元素松开鼠标触发
+
+### XMLHttpRequest
+```javascript
+// 手写 ajax
+const xhr = new XMLHttpRequest
+xhr.open('GET', '/api', true) // true:异步 false同步
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log(xhr.responseText)
+  }
+}
+xhr.send(null) // 参数
+```
+`xhr status`
+- 2xx：成功了
+- 3xx：需要重定向，浏览器直接跳转 301 302 304(缓存)
+- 4xx：客户端请求错误 403 404
+- 5xx：服务器端错误
+
+`同源策略`
+- 浏览器最基本策略: ajax请求时，浏览器要求当前网页和server必须同源(安全)
+- 同源：协议，域名，端口三者必须一致
+
+- 加载图片，css，js 可无视同源策略
+- <img/>可用于统计打点，可使用第三方统计服务
+- <link/><script/>可使用CDN
+- <script/>实现JSONP
+
+`跨域`
+- 所有的跨域，都必须经过server端允许
+- JSONP - 利用script不受同源策略限制
+- CORS - 服务器设置http header
+
+```javascript
+// axios 手写 jsonp
+axios.jsonp = (url) => {
+    if (!url) {
+        console.error('Axios.JSONP 至少需要一个url参数!')
+        return
+    }
+    return new Promise((resolve, reject) => {
+        window.jsonCallBack = (result) => {
+            resolve(result)
+        }
+        var JSONP = document.createElement('script')
+        JSONP.type = 'text/javascript'
+        JSONP.src = `${url}&callback=jsonCallBack`
+        document.getElementsByTagName('head')[0].appendChild(JSONP)
+        setTimeout(() => {
+            document.getElementsByTagName('head')[0].removeChild(JSONP)
+        }, 500)
+    })
+}
+// CORS
+// 第二个参数填写允许跨域的域名城，不建议写'*'
+response.setHeader("Access-Control-Allow-Origin","http://localhost:8080")
+response.setHeader("Access-Control-Allow-Headers","x-requested-with,Content-Type")
+response.setHeader("Access-Control-Allow-Methods","POST,OPTIONS,GET")
+// 接收跨域的cookie
+response.setHeader("Access-Control-Allow-Credentials","true")
+response.setHeader("Access-Control-Max-Age","3600")
+```
+### 存储 - cookie，localStorage，sessionStorage
+`cookie`
+- 本身用来浏览器和server通讯
+- 被'借用'来做本地存储(h5出现)
+- 可用document.cookie='' 来修改(获取)
+缺点：
+- 存储大小，最大4kb
+- http请求时需要发送到服务端，增加请求数据量
+- 只能用document.cookie=''来修改，太过简陋
+`localStorage 和 sessionStorage`
+- HTML5 专门为存储设计，最大5M
+- API 简单易用 setItem getItem(key-value(字符串)形式)
+- 不会随着http发送
+区别：
+- localStorage 数据会永久存储，除非代码或手动删除
+- sessionStorage 数据只存在于当前会话，浏览器关闭则清空
+- 一般用localStorage 多一些
+
+### http
+`http状态码`
+- 1xx：服务器收到请求
+- 2xx：成功了 
+- - 200(成功)
+- 3xx：需要重定向，浏览器直接跳转   304(缓存)
+- - 301 永久重定向(配合location, 浏览器自动处理) -场景：换域名
+- - 302 临时重定向(配合location, 浏览器自动处理) -场景：网站外链
+- - 304 资源未被修改
+- 4xx：客户端请求错误 403 404
+- - 403 资源无权限
+- - 404 资源未找到
+- 5xx：服务器端错误
+- - 500 服务器错误
+- - 504 网关超时
+
+`http methods`
+- get 获取数据
+- post 新建数据
+- patch/put 更新数据
+- delete 删除数据
+
+`Restful API`
+- 一种API设计方法
+- 传统API设计：把每个url当做一个功能(/api/list?page=2)
+- Restful API设计：把每个url当做一个唯一的资源(/api/page/2)
+ 
+- 尽量不用url参数
+- 用method作为api类型 
+
+`http headers`
+request headers
+- Accept 浏览器可接受的数据格式
+- Accept-Encodeing 浏览器可接受的压缩算法如gzip
+- Accept-Language 接收语言zh-CN
+- Connection: Keep-alive 一次TCP连接重复使用
+- Cookie
+- User-Agent(UA)浏览器信息
+- Content-type 发送数据格式如application/json
+response headers
+- Content-type 返回数据格式
+- Content-length 返回数据大小(字节)
+- Content-Encoding 返回数据的压缩算法如gzip
+缓存相关的headers
+- Cache-Control 
+
+`http 缓存`
