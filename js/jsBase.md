@@ -323,4 +323,32 @@ response headers
 缓存相关的headers
 - Cache-Control 
 
-`http 缓存`
+#### http缓存
+`强制缓存`
+- Cache-Control在Response Header中
+- 控制强制缓存的逻辑
+- 例如 Cache-Control: max-age=315600(秒)
+- 初次从服务器请求后缓存本地，再次请求直接走缓存(未失效下)
+
+`Cache-Control`
+- max-age过期时间
+- no-cache 不启用强制缓存，交给服务端处理
+- no-store 不开启缓存
+
+`协商缓存`
+- 服务端缓存策略
+- 服务端判断客户端资源，是否和服务端资源一样
+- 一致则返回304，否则返回200和最新的资源
+
+- 初次请求，返回资源和资源标识(Last-Modified)
+- 再次请求，resquest hreder带着资源标识(If-Modified-Since/If-None-Match)给服务端识别
+- 服务端判断资源是否一致(返回304)
+- 标识在 Response Header中，有两种
+- Last-Modified资源最后修改时间
+- Etag 资源的唯一标识(一个字符串，类似人类的指纹)
+- 共存时会优先使用Etag(更精准)
+
+`三种刷新操作`
+- 正常操作：地址栏输入url，跳转链接，前进后退 -强制缓存有效，协商缓存有效
+- 手动刷新F5，点击刷新按钮，右键刷新 -强制缓存失效，协商缓存有效
+- 强制刷新：ctrl+F5 -强制缓存失效，协商缓存失效
