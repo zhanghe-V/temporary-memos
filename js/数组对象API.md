@@ -13,3 +13,7 @@
 - map
 - filter
 - slice(切片)
+
+### new Object() 和 Object.create() 区别?
+- const obj2 = new Object(obj1) // obj1 === obj2 true
+- Object.create 创建的对象没有原型，原型指向参数对象
