@@ -1,10 +1,11 @@
 ### typeOf能判断哪些类型?
 - 值类型：存储在栈(通过key-value) (number, string, boolean, symbol, undefined)
 - 引用类型：存储在堆(栈中存的是内存地址) (object, array, null, function )
-- typeOf能判断 所有的值类型|函数|是否是引用类型
+- typeOf能判断： 所有的值类型|函数|是否是引用类型
 
 ### 何时使用== / ===?
-- ==会进行类型转换 100 == '100' √
+- 强制类型转换: parseInt parseFloat toString 等
+- ==会进行隐式类型转换 100 == '100' √
 - 除了 ==null 之外，其他一律使用 ===，例如
 ```javascript
 const obj = {x:100}
