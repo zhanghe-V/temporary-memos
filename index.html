@@ -15,28 +15,18 @@
 <body>
   <div id="div1" draggable="true"></div>
   <script type="text/javascript">
-    function isObj(obj) {
-      return typeof obj === 'object' && obj !== null
+// 获取多个数字中的最大值
+function max() {
+  // 获取参数数组
+  const nums = Array.prototype.slice.call(arguments)
+  let max = 0
+  nums.forEach(n => {
+    if (n > max) {
+      max = n
     }
-    function isEqual(obj1, obj2) {
-      if (!isObj(obj1) || !isObj(obj2)) {
-        return obj1 === obj2
-      }
-      if (obj1 === obj2) {
-        return true
-      }
-      let keys1 = Object.keys(obj1)
-      let keys2 = Object.keys(obj2)
-      if (keys1.length !== keys2.length) {
-        return false
-      }
-      for (const k in obj1) {
-        if (!isEqual(obj1[k], obj2[k])) {
-          return false
-        }
-      }
-      return true 
-    }
+  })
+  return max
+}
 </script>
 </body>
 </html>
