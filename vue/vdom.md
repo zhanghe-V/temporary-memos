@@ -1,29 +1,30 @@
-1. 虚拟Dom 和 diff
+### 虚拟Dom 和 diff
 - DOM 操作非常耗费性能， JS运行速度快
 - jq 可以自行控制操作时机，手动调整
 - Vue 和 React 是数据驱动视图， 如何让有效控制Dom -- vdom
 
-通过 snabbdom 学习 vdom
+### 通过 snabbdom 学习 vdom
 
-树 diff 的时间复杂的 O(n^3)
+`树 diff 的时间复杂的 O(n^3)`
 - 第一，遍历 tree1； 第二， 遍历tree2
 - 第三，排序
 - 1000 个节点，要计算1亿次，算法不可用
 
-优化时间复杂度到 O(n)
+
+`优化时间复杂度到 O(n)`
 - 之比较同一层级，不跨级比较
 - tag 不同，则直接删除，不在深度比较
 - tag 和 key，两者都相同，则认为相同节点，不再深度比较
 
-patchVnode 函数核心函数：
+#### patchVnode 函数核心函数：
 - updateChildren (key 的重要性)
 - addVnodes
 - removeVnodes
 - setTextContent
 
-vnode 核心概念(h, vnode, patch, diff, key)
+`vnode 核心概念(h, vnode, patch, diff, key)`
 
-2. 模板编译 - 组件渲染和更新过程
+### 模板编译 - 组件渲染和更新过程
 vue-templete-complier 将模板编译为 render 函数
 执行render 函数生成 vnode 
 

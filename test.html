@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>throttle</title>
+  <style>
+      html,body {
+          width: 100%;
+          height: 100%;
+      }
+  </style>
+</head>
+<body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript">
+    let html = document.getElementsByTagName("html")[0];
+    let body = document.getElementsByTagName("body")[0];
+    $(html).on('click', function(e) {
+      let elem = document.createElement('b')
+      let x = e.pageX
+      let y = e.pageY
+      let increase = 0
+      let timer
+      clearInterval(timer)
+      $(elem).css({
+        color: "#E94F06",
+        zIndex: 9999,
+        position: 'absolute',
+        left: `${x-10}px`,
+        top: `${y-20}px`,
+        fontSize: `${Math.random()*10 + 10}px`
+      })
+      $(elem).text(['(๑•̀_•́๑)', '(๑•́ ∀ •̀๑)', '(๑•́ ₃ •̀๑)', 'OωO'][parseInt(Math.random()*100)%4])
+      $(body).append(elem)
+      // 定时器实现
+      // timer = setInterval(() => {
+      //   if (++increase == 150) {
+      //     console.log(999);
+      //       clearInterval(timer)
+      //       body.removeChild(elem)
+      //   }
+      //   $(elem).css({
+      //     top: `${y - 20 - increase}px`,
+      //     opacity: (150 - increase) / 120
+      //   })
+      // }, 8)
+
+      // requestAnimationFrame实现
+      function animate() {
+        increase += 2
+        if (increase <= 200) {
+          $(elem).css({
+            top: `${y - 20 - increase}px`,
+            opacity: (150 - increase) / 120
+          })
+          window.requestAnimationFrame(animate)
+        } else {
+          body.removeChild(elem)
+        }
+      }
+      animate()
+    })
+  </script>
+</body>
+</html>
