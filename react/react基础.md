@@ -374,11 +374,11 @@ const store = createStore(rootReducer, applyMiddleware(thunk))
 
 ```
 `redux 中间件`
-![Image text](./images/redux-middleware.png)
+<img src="../images/redux-middleware.png" alt="redux-middleware" />
 - 中间件插在dispach中
 
 `redux 数据流图`
-![Image text](./images/redux.png)
+<img src="../images/redux.png" alt="redux" />
 
 ### React-router
 - 路由模式 hash/H5history

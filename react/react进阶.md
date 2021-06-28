@@ -36,7 +36,8 @@ React.createElement('tag', {id: 'div1'}, [child1, child2, child3])
 - 所有事件挂载到document上
 - event 不是原生的，是SyntheticEvent合成事件对象
 - 和Vue事件不同,和DOM事件也不同
-![Image text](./images/syntheticEvent.png)
+
+<img src="../images/syntheticEvent.png" alt="syntheticEvent" />
 
 `为什么要合成事件`
 - 更好的兼容性和跨平台
@@ -48,8 +49,11 @@ React.createElement('tag', {id: 'div1'}, [child1, child2, child3])
 - 有时合并(对象形式)，有时不合并(函数形式)
 
 `setState主流程`
+
 `batchUpdate机制`
-![Image text](./images/setState主流程.png)
+
+<img src="../images/setState主流程.png" alt="redux" />
+
 ```javascript
 class ListDemo extends React.Component {
   constructor(props){
@@ -105,7 +109,8 @@ class ListDemo extends React.Component {
 - React'管不到'的入口
 
 `transaction(事务)机制`
-![Image text](./images/transaction事务机制.png)
+
+<img src="../images/transaction事务机制.png" alt="transaction事务机制" />
 
 - 在事件的开始和结束做一些事情
 
