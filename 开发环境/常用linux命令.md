@@ -34,3 +34,8 @@ grep "babel" package.json
 - esc退出编辑模式 
 - :w保存文件
 - q 退出 q!强制退出不保存
+
+### 输出目录树结构
+- tree (默认只显示文件夹)
+- tree /f (显示所有文件和文件夹)
+- tree /f >darknet.txt (将当前文件夹树形结构写入xxx.txt中)
